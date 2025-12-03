@@ -78,6 +78,31 @@ This repository presents an evaluation of OpenAI's open-source language models (
 | BART (base) | 41.76 | 19.20 | 34.70 | Yim et al. 2023 |
 | LED | 28.37 | 5.52 | 22.78 | Yim et al. 2023 |
 
+### Efficiency Analysis
+
+While GPT-4 achieves higher ROUGE scores, the OpenAI OSS models offer significant advantages in cost, accessibility, and deployment flexibility:
+
+| Model | ROUGE-1 | Parameters | Open Source | Est. Cost/1K tokens | Self-Hostable | Fine-Tunable |
+|:------|:-------:|:----------:|:-----------:|:-------------------:|:-------------:|:------------:|
+| GPT-4 | 51.76 | ~1.8T | ❌ | ~$0.03-0.06 | ❌ | ❌ |
+| ChatGPT | 47.44 | ~175B | ❌ | ~$0.002 | ❌ | Limited |
+| **gpt-oss-120b** | 45.89 | 120B | ✅ | ~$0.001 | ✅ | ✅ |
+| **gpt-oss-20b** | 45.03 | 20B | ✅ | ~$0.0005 | ✅ | ✅ |
+| BART | 41.76 | 400M | ✅ | ~$0.0001 | ✅ | ✅ |
+
+### Cost-Performance Trade-off
+
+| Metric | gpt-oss-20b vs GPT-4 | Advantage |
+|:-------|:--------------------:|:---------:|
+| ROUGE-1 Gap | -6 points | GPT-4 |
+| Parameter Efficiency | **90x fewer** parameters | **gpt-oss-20b** |
+| Cost Efficiency | **~60x cheaper** | **gpt-oss-20b** |
+| Data Privacy | Full control | **gpt-oss-20b** |
+| Customization | Fully fine-tunable | **gpt-oss-20b** |
+| Vendor Lock-in | None | **gpt-oss-20b** |
+
+> **Key Insight**: gpt-oss-20b achieves **87% of GPT-4's ROUGE-1 performance** at a fraction of the cost, with full customization capabilities.
+
 ---
 
 ## Key Findings
