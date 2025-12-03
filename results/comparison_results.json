@@ -30,24 +30,70 @@
       "rouge1": 0.5346,
       "rouge2": 0.2508,
       "rougeL": 0.4862,
+      "type": "Fine-tuned",
       "source": "Yim et al. 2023"
     },
     "GPT-4": {
       "rouge1": 0.5176,
       "rouge2": 0.2258,
       "rougeL": 0.4597,
+      "type": "Proprietary",
+      "source": "Yim et al. 2023"
+    },
+    "BART_Division": {
+      "rouge1": 0.5156,
+      "rouge2": 0.2406,
+      "rougeL": 0.4592,
+      "type": "Fine-tuned",
+      "source": "Yim et al. 2023"
+    },
+    "BioBART_Division": {
+      "rouge1": 0.4953,
+      "rouge2": 0.2247,
+      "rougeL": 0.4492,
+      "type": "Domain-specific",
       "source": "Yim et al. 2023"
     },
     "ChatGPT": {
       "rouge1": 0.4744,
       "rouge2": 0.1901,
       "rougeL": 0.4247,
+      "type": "Proprietary",
       "source": "Yim et al. 2023"
     },
-    "BART_base": {
+    "Text-Davinci-003": {
+      "rouge1": 0.4707,
+      "rouge2": 0.2208,
+      "rougeL": 0.4311,
+      "type": "Proprietary",
+      "source": "Yim et al. 2023"
+    },
+    "BART_Full-note": {
       "rouge1": 0.4176,
       "rouge2": 0.1920,
       "rougeL": 0.3470,
+      "type": "Fine-tuned",
+      "source": "Yim et al. 2023"
+    },
+    "Text-Davinci-002": {
+      "rouge1": 0.4108,
+      "rouge2": 0.1727,
+      "rougeL": 0.3746,
+      "type": "Proprietary",
+      "source": "Yim et al. 2023"
+    },
+    "LED_Division": {
+      "rouge1": 0.3415,
+      "rouge2": 0.0801,
+      "rougeL": 0.2980,
+      "type": "Fine-tuned",
+      "source": "Yim et al. 2023"
+    },
+    "LED_Full-note": {
+      "rouge1": 0.2837,
+      "rouge2": 0.0552,
+      "rougeL": 0.2278,
+      "type": "Fine-tuned",
       "source": "Yim et al. 2023"
     }
   }

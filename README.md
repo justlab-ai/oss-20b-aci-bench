@@ -66,17 +66,31 @@ This repository presents an evaluation of OpenAI's open-source language models (
 
 > *Evaluation conducted on ACI-Bench validation set (n=20). Scores reported as F1 percentages.*
 
-### Baseline Comparison
+### Complete Model Comparison
 
-| Model | ROUGE-1 | ROUGE-2 | ROUGE-L | Source |
-|:------|:-------:|:-------:|:-------:|:------:|
-| BART + FTSAMSum (Division) | **53.46** | **25.08** | **48.62** | Yim et al. 2023 |
-| GPT-4 | 51.76 | 22.58 | 45.97 | Yim et al. 2023 |
-| ChatGPT | 47.44 | 19.01 | 42.47 | Yim et al. 2023 |
-| **gpt-oss-120b** | 45.89 | 15.15 | 19.30 | This work |
-| **gpt-oss-20b** | 45.03 | 15.18 | 21.33 | This work |
-| BART (base) | 41.76 | 19.20 | 34.70 | Yim et al. 2023 |
-| LED | 28.37 | 5.52 | 22.78 | Yim et al. 2023 |
+| Rank | Model | Type | ROUGE-1 | ROUGE-2 | ROUGE-L | Source |
+|:----:|:------|:-----|:-------:|:-------:|:-------:|:------:|
+| 1 | BART + FTSAMSum (Division) | Fine-tuned | **53.46** | **25.08** | **48.62** | Yim et al. 2023 |
+| 2 | GPT-4 | Proprietary | 51.76 | 22.58 | 45.97 | Yim et al. 2023 |
+| 3 | BART (Division) | Fine-tuned | 51.56 | 24.06 | 45.92 | Yim et al. 2023 |
+| 4 | BioBART (Division) | Domain-specific | 49.53 | 22.47 | 44.92 | Yim et al. 2023 |
+| 5 | ChatGPT | Proprietary | 47.44 | 19.01 | 42.47 | Yim et al. 2023 |
+| 6 | Text-Davinci-003 | Proprietary | 47.07 | 22.08 | 43.11 | Yim et al. 2023 |
+| 7 | **gpt-oss-120b** | **Open Source** | 45.89 | 15.15 | 19.30 | This work |
+| 8 | **gpt-oss-20b** | **Open Source** | 45.03 | 15.18 | 21.33 | This work |
+| 9 | BART (Full-note) | Fine-tuned | 41.76 | 19.20 | 34.70 | Yim et al. 2023 |
+| 10 | Text-Davinci-002 | Proprietary | 41.08 | 17.27 | 37.46 | Yim et al. 2023 |
+| 11 | LED (Division) | Fine-tuned | 34.15 | 8.01 | 29.80 | Yim et al. 2023 |
+| 12 | LED (Full-note) | Fine-tuned | 28.37 | 5.52 | 22.78 | Yim et al. 2023 |
+
+### Model Categories
+
+| Category | Models | Characteristics |
+|:---------|:-------|:----------------|
+| **Proprietary LLMs** | GPT-4, ChatGPT, Text-Davinci | High performance, closed-source, API-only |
+| **Open Source LLMs** | gpt-oss-20b, gpt-oss-120b | Competitive performance, self-hostable, fine-tunable |
+| **Fine-tuned Encoder-Decoder** | BART, BioBART, LED | Task-specific training, division-based approach |
+| **Domain-Specific** | BioBART | Pre-trained on biomedical literature |
 
 ### Efficiency Analysis
 
