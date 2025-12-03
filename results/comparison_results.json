@@ -1,0 +1,54 @@
+{
+  "evaluation_date": "2024-12-03",
+  "dataset": "ACI-Bench",
+  "data_split": "validation",
+  "num_samples": 20,
+  "models": {
+    "gpt-oss-20b": {
+      "model_id": "openai.gpt-oss-20b-1:0",
+      "metrics": {
+        "rouge1": 0.4503,
+        "rouge2": 0.1518,
+        "rougeL": 0.2133
+      },
+      "num_successful": 19,
+      "inference_time_avg_seconds": 52.1
+    },
+    "gpt-oss-120b": {
+      "model_id": "openai.gpt-oss-120b-1:0",
+      "metrics": {
+        "rouge1": 0.4589,
+        "rouge2": 0.1515,
+        "rougeL": 0.1930
+      },
+      "num_successful": 20,
+      "inference_time_avg_seconds": 11.9
+    }
+  },
+  "baseline_comparison": {
+    "BART_FTSAMSum_Division": {
+      "rouge1": 0.5346,
+      "rouge2": 0.2508,
+      "rougeL": 0.4862,
+      "source": "Yim et al. 2023"
+    },
+    "GPT-4": {
+      "rouge1": 0.5176,
+      "rouge2": 0.2258,
+      "rougeL": 0.4597,
+      "source": "Yim et al. 2023"
+    },
+    "ChatGPT": {
+      "rouge1": 0.4744,
+      "rouge2": 0.1901,
+      "rougeL": 0.4247,
+      "source": "Yim et al. 2023"
+    },
+    "BART_base": {
+      "rouge1": 0.4176,
+      "rouge2": 0.1920,
+      "rougeL": 0.3470,
+      "source": "Yim et al. 2023"
+    }
+  }
+}
