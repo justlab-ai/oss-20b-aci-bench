@@ -1,13 +1,31 @@
 <div align="center">
 
+<!-- Technology Banners -->
+<a href="https://openai.com">
+  <img src="https://img.shields.io/badge/OpenAI-000000?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI" height="35"/>
+</a>
+&nbsp;&nbsp;
+<a href="https://aws.amazon.com/bedrock/">
+  <img src="https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-web-services&logoColor=white" alt="AWS" height="35"/>
+</a>
+&nbsp;&nbsp;
+<a href="https://aws.amazon.com/bedrock/">
+  <img src="https://img.shields.io/badge/AWS_Bedrock-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="Bedrock" height="35"/>
+</a>
+
+<br/><br/>
+
 # Evaluation of OpenAI OSS Models on ACI-Bench
 
 **Benchmarking Clinical Note Generation with Large Language Models**
 
-[![OpenAI](https://img.shields.io/badge/OpenAI-OSS_Models-412991?logo=openai&logoColor=white)](https://openai.com)
-[![AWS](https://img.shields.io/badge/AWS-Bedrock-FF9900?logo=amazon-aws&logoColor=white)](https://aws.amazon.com/bedrock/)
-[![Python](https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white)](https://python.org)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+<br/>
+
+[![OpenAI Models](https://img.shields.io/badge/Models-gpt--oss--20b_|_gpt--oss--120b-412991?style=flat-square&logo=openai&logoColor=white)](https://openai.com)
+[![AWS Bedrock](https://img.shields.io/badge/Infrastructure-AWS_Bedrock-FF9900?style=flat-square&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/bedrock/)
+[![Dataset](https://img.shields.io/badge/Dataset-ACI--Bench-blue?style=flat-square)](https://github.com/wyim/aci-bench)
+[![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
 </div>
 
