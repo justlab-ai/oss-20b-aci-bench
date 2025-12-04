@@ -51,25 +51,26 @@
 
 ## Abstract
 
-This repository presents an evaluation of OpenAI's open-source language models (`gpt-oss-20b` and `gpt-oss-120b`) on the ACI-Bench benchmark for automated clinical note generation. Using AWS Bedrock for inference, we assess model performance on converting doctor-patient conversations into structured clinical documentation. Our results demonstrate competitive zero-shot performance, achieving ROUGE-1 scores of 45.0-45.9%, comparable to ChatGPT while outperforming baseline BART models.
+This repository presents an evaluation of OpenAI's open-source language models (`gpt-oss-20b` and `gpt-oss-120b`) on the ACI-Bench benchmark for automated clinical note generation. Using AWS Bedrock for inference, we assess model performance on converting doctor-patient conversations into structured clinical documentation. Our results demonstrate competitive zero-shot performance, achieving ROUGE-1 scores of 43.8-44.4% on the test1 split (n=40), positioning these models between Text-Davinci-002 and ChatGPT.
 
 ---
 
 ## Results
 
-> **Key Finding**: OpenAI OSS models achieve **87-89% of GPT-4's performance** at **60x lower cost**, with full fine-tuning and self-hosting capabilities.
+> **Key Finding**: OpenAI OSS models achieve **85-86% of GPT-4's performance** at **60x lower cost**, with full fine-tuning and self-hosting capabilities.
 
 ### Visual Comparison
 
 ```
-ROUGE-1 Performance (Higher = Better)
+ROUGE-1 Performance (Higher = Better) — Test1 Split (n=40)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 BART+FT (tune)  █████████████████████████████████████████ 53.5
 GPT-4           ███████████████████████████████████████░░ 51.8
 ChatGPT         ████████████████████████████████████░░░░░ 47.4
-gpt-oss-120b    ██████████████████████████████████░░░░░░░ 45.9  ◄ OSS
-gpt-oss-20b     █████████████████████████████████░░░░░░░░ 45.0  ◄ OSS
-BART (base)     ███████████████████████████████░░░░░░░░░░ 41.8
+Text-Davinci-003████████████████████████████████████░░░░░ 47.1
+gpt-oss-120b    █████████████████████████████████░░░░░░░░ 44.4  ◄ OSS
+gpt-oss-20b     █████████████████████████████████░░░░░░░░ 43.8  ◄ OSS
+Text-Davinci-002██████████████████████████████░░░░░░░░░░░ 41.1
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -87,10 +88,10 @@ gpt-oss-20b     ░░░░░░░░░░░░░░░░░░░░░�
 
 | Model | Parameters | ROUGE-1 | ROUGE-2 | ROUGE-L | Inference |
 |:------|:----------:|:-------:|:-------:|:-------:|:---------:|
-| **gpt-oss-20b** | 20B | 45.03 | 15.18 | 21.33 | ~50s |
-| **gpt-oss-120b** | 120B | 45.89 | 15.15 | 19.30 | ~12s |
+| **gpt-oss-20b** | 20B | 43.84 | 14.73 | 20.08 | ~28s |
+| **gpt-oss-120b** | 120B | 44.35 | 14.71 | 19.43 | ~6s |
 
-> *Zero-shot evaluation on ACI-Bench validation set (n=20). Scores = F1 %.*
+> *Zero-shot evaluation on ACI-Bench test1 split (n=40). Scores = F1 %.*
 
 ### Comparison with Baselines
 
@@ -99,15 +100,16 @@ gpt-oss-20b     ░░░░░░░░░░░░░░░░░░░░░�
 | BART + FTSAMSum | Fine-tuned | **53.46** | +3% |
 | GPT-4 | Proprietary | 51.76 | — |
 | ChatGPT | Proprietary | 47.44 | -8% |
-| **gpt-oss-120b** | **Open Source** | 45.89 | -11% |
-| **gpt-oss-20b** | **Open Source** | 45.03 | -13% |
-| BART (base) | Fine-tuned | 41.76 | -19% |
+| Text-Davinci-003 | Proprietary | 47.07 | -9% |
+| **gpt-oss-120b** | **Open Source** | 44.35 | -14% |
+| **gpt-oss-20b** | **Open Source** | 43.84 | -15% |
+| Text-Davinci-002 | Proprietary | 41.08 | -21% |
 
 ### Why Open Source?
 
 | Metric | GPT-4 | gpt-oss-20b | Advantage |
 |:-------|:-----:|:-----------:|:---------:|
-| ROUGE-1 | 51.76 | 45.03 | GPT-4 (+13%) |
+| ROUGE-1 | 51.76 | 43.84 | GPT-4 (+15%) |
 | Parameters | ~1.8T | 20B | **OSS (90x smaller)** |
 | Cost/1K tokens | ~$0.03 | ~$0.0005 | **OSS (60x cheaper)** |
 | Self-Hostable | ❌ | ✅ | **OSS** |
@@ -120,13 +122,13 @@ gpt-oss-20b     ░░░░░░░░░░░░░░░░░░░░░�
 
 ### Model Performance
 
-1. **Competitive Zero-Shot Results**: Both models achieve ROUGE-1 scores within 2 percentage points of ChatGPT without task-specific fine-tuning.
+1. **Competitive Zero-Shot Results**: Both models achieve ROUGE-1 scores between Text-Davinci-002 and ChatGPT, about 3-4 points below ChatGPT without task-specific fine-tuning.
 
-2. **Limited Scaling Benefit**: The 120B model provides only marginal improvement (+1.9% ROUGE-1) over the 20B variant, suggesting diminishing returns from increased model capacity for this task.
+2. **Limited Scaling Benefit**: The 120B model provides only marginal improvement (+0.5% ROUGE-1) over the 20B variant, suggesting diminishing returns from increased model capacity for this task.
 
-3. **Structural Differences**: Lower ROUGE-L scores indicate generated notes differ structurally from reference notes, likely due to the full-note generation approach versus division-based methods.
+3. **Structural Differences**: Lower ROUGE-L scores (~20% vs 42-46% for ChatGPT/GPT-4) indicate generated notes differ structurally from reference notes, likely due to the full-note generation approach versus division-based methods.
 
-4. **Inference Efficiency**: Counterintuitively, the 120B model demonstrated faster inference times (~12s vs ~50s per sample), potentially due to infrastructure optimizations.
+4. **Inference Efficiency**: The 120B model demonstrated faster inference times (~6s vs ~28s per sample), potentially due to infrastructure optimizations.
 
 ### Recommendations
 
@@ -154,7 +156,7 @@ gpt-oss-20b     ░░░░░░░░░░░░░░░░░░░░░�
 |:----------|:--------------|
 | Models | OpenAI gpt-oss-20b, gpt-oss-120b |
 | Infrastructure | AWS Bedrock (us-east-1) |
-| Dataset | ACI-Bench validation split (n=20) |
+| Dataset | ACI-Bench test1 split (n=40) |
 | Evaluation | ROUGE-1, ROUGE-2, ROUGE-L (F1) |
 | Generation | Zero-shot, full-note approach |
 | Temperature | 0.3 |
@@ -181,7 +183,7 @@ aws configure  # Set up AWS credentials
 git clone https://github.com/justlab-ai/oss-20b-aci-bench.git
 cd oss-20b-aci-bench
 
-python scripts/evaluate_bedrock.py --model both --data-split valid
+python scripts/evaluate_bedrock.py --model both --data-split test1
 ```
 
 ### Output
