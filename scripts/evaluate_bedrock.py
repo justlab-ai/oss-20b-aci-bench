@@ -32,6 +32,8 @@ except ImportError:
 MODELS = {
     "gpt-oss-20b": "openai.gpt-oss-20b-1:0",
     "gpt-oss-120b": "openai.gpt-oss-120b-1:0",
+    "ministral-3b": "mistral.ministral-3-3b-instruct",
+    "ministral-8b": "mistral.ministral-3-8b-instruct",
 }
 
 # Data split configurations
@@ -80,14 +82,25 @@ def call_bedrock_model(
 
     prompt = f"{SYSTEM_PROMPT}\n\nDoctor-Patient Conversation:\n{dialogue}\n\nClinical Note:"
 
-    # Request body for OpenAI models on Bedrock
-    request_body = {
-        "messages": [
-            {"role": "user", "content": prompt}
-        ],
-        "max_tokens": 1024,
-        "temperature": 0.3,
-    }
+    # Build request body based on model provider
+    if model_id.startswith("mistral."):
+        # Mistral models use a different format
+        request_body = {
+            "messages": [
+                {"role": "user", "content": prompt}
+            ],
+            "max_tokens": 1024,
+            "temperature": 0.3,
+        }
+    else:
+        # OpenAI models on Bedrock
+        request_body = {
+            "messages": [
+                {"role": "user", "content": prompt}
+            ],
+            "max_tokens": 1024,
+            "temperature": 0.3,
+        }
 
     for attempt in range(max_retries):
         try:
@@ -100,11 +113,16 @@ def call_bedrock_model(
 
             response_body = json.loads(response['body'].read())
 
-            # Extract generated text from response
+            # Extract generated text from response based on provider
             if 'choices' in response_body:
+                # OpenAI and Mistral format
                 return response_body['choices'][0]['message']['content']
             elif 'content' in response_body:
+                # Anthropic format
                 return response_body['content'][0]['text']
+            elif 'outputs' in response_body:
+                # Some Mistral models
+                return response_body['outputs'][0]['text']
             else:
                 print(f"Unexpected response format: {response_body.keys()}")
                 return str(response_body)
@@ -243,7 +261,7 @@ def main():
         "--model",
         type=str,
         default="both",
-        choices=["gpt-oss-20b", "gpt-oss-120b", "both"],
+        choices=["gpt-oss-20b", "gpt-oss-120b", "ministral-3b", "ministral-8b", "both", "ministral"],
         help="Which model to evaluate"
     )
     parser.add_argument(
@@ -296,7 +314,9 @@ def main():
     # Determine which models to evaluate
     models_to_eval = []
     if args.model == "both":
-        models_to_eval = list(MODELS.items())
+        models_to_eval = [(k, v) for k, v in MODELS.items() if k.startswith("gpt-oss")]
+    elif args.model == "ministral":
+        models_to_eval = [(k, v) for k, v in MODELS.items() if k.startswith("ministral")]
     else:
         models_to_eval = [(args.model, MODELS[args.model])]
 
