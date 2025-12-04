@@ -188,10 +188,10 @@ python scripts/evaluate_bedrock.py --model both --data-split test1
 
 ### Output
 
-Results are saved to `results/` directory:
-- `gpt-oss-20b_results.json` — Per-sample predictions and scores
-- `gpt-oss-120b_results.json` — Per-sample predictions and scores
-- `comparison_results.json` — Aggregate metrics comparison
+Results are saved to `runs/` directory as markdown files:
+- `runs/YYYY-MM-DD_<split>.md` — Run log with metrics and benchmark comparisons
+
+See [runs/](runs/) for all evaluation runs.
 
 ---
 
