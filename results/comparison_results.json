@@ -1,28 +1,28 @@
 {
-  "evaluation_date": "2024-12-03",
+  "evaluation_date": "2025-12-04",
   "dataset": "ACI-Bench",
-  "data_split": "validation",
-  "num_samples": 20,
+  "data_split": "test1",
+  "num_samples": 40,
   "models": {
     "gpt-oss-20b": {
       "model_id": "openai.gpt-oss-20b-1:0",
       "metrics": {
-        "rouge1": 0.4503,
-        "rouge2": 0.1518,
-        "rougeL": 0.2133
+        "rouge1": 0.4384,
+        "rouge2": 0.1473,
+        "rougeL": 0.2008
       },
-      "num_successful": 19,
-      "inference_time_avg_seconds": 52.1
+      "num_successful": 39,
+      "inference_time_avg_seconds": 28.1
     },
     "gpt-oss-120b": {
       "model_id": "openai.gpt-oss-120b-1:0",
       "metrics": {
-        "rouge1": 0.4589,
-        "rouge2": 0.1515,
-        "rougeL": 0.1930
+        "rouge1": 0.4435,
+        "rouge2": 0.1471,
+        "rougeL": 0.1943
       },
-      "num_successful": 20,
-      "inference_time_avg_seconds": 11.9
+      "num_successful": 40,
+      "inference_time_avg_seconds": 5.7
     }
   },
   "baseline_comparison": {
@@ -47,13 +47,6 @@
       "type": "Fine-tuned",
       "source": "Yim et al. 2023"
     },
-    "BioBART_Division": {
-      "rouge1": 0.4953,
-      "rouge2": 0.2247,
-      "rougeL": 0.4492,
-      "type": "Domain-specific",
-      "source": "Yim et al. 2023"
-    },
     "ChatGPT": {
       "rouge1": 0.4744,
       "rouge2": 0.1901,
@@ -68,32 +61,11 @@
       "type": "Proprietary",
       "source": "Yim et al. 2023"
     },
-    "BART_Full-note": {
-      "rouge1": 0.4176,
-      "rouge2": 0.1920,
-      "rougeL": 0.3470,
-      "type": "Fine-tuned",
-      "source": "Yim et al. 2023"
-    },
     "Text-Davinci-002": {
       "rouge1": 0.4108,
       "rouge2": 0.1727,
       "rougeL": 0.3746,
       "type": "Proprietary",
-      "source": "Yim et al. 2023"
-    },
-    "LED_Division": {
-      "rouge1": 0.3415,
-      "rouge2": 0.0801,
-      "rougeL": 0.2980,
-      "type": "Fine-tuned",
-      "source": "Yim et al. 2023"
-    },
-    "LED_Full-note": {
-      "rouge1": 0.2837,
-      "rouge2": 0.0552,
-      "rougeL": 0.2278,
-      "type": "Fine-tuned",
       "source": "Yim et al. 2023"
     }
   }
