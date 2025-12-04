@@ -86,24 +86,37 @@ gpt-oss-20b     ░░░░░░░░░░░░░░░░░░░░░�
 
 ### Our Results
 
-| Model | Parameters | ROUGE-1 | ROUGE-2 | ROUGE-L | Inference |
-|:------|:----------:|:-------:|:-------:|:-------:|:---------:|
-| **gpt-oss-20b** | 20B | 43.84 | 14.73 | 20.08 | ~28s |
-| **gpt-oss-120b** | 120B | 44.35 | 14.71 | 19.43 | ~6s |
+| Model | Total Params | Active Params | ROUGE-1 | ROUGE-2 | ROUGE-L | Inference |
+|:------|:------------:|:-------------:|:-------:|:-------:|:-------:|:---------:|
+| **gpt-oss-120b** ⭐ | 120B | ~20B (MoE) | 44.35 | 14.71 | 19.43 | ~6s |
+| **gpt-oss-20b** ⭐ | 21B | 3.6B (MoE) | 43.84 | 14.73 | 20.08 | ~28s |
+| **ministral-3b** ⭐ | 3B | 3B (Dense) | 41.80 | 12.80 | 21.95 | ~3.4s |
+| **ministral-8b** ⭐ | 8B | 8B (Dense) | 40.25 | 12.30 | 20.45 | ~5.7s |
 
-> *Zero-shot evaluation on ACI-Bench test1 split (n=40). Scores = F1 %.*
+> ⭐ = Our evaluation on ACI-Bench test1 split (n=40). Scores = F1 %.
 
-### Comparison with Baselines
+### Comparison with Published Baselines
 
-| Model | Type | ROUGE-1 | vs GPT-4 |
-|:------|:-----|:-------:|:--------:|
-| BART + FTSAMSum | Fine-tuned | **53.46** | +3% |
-| GPT-4 | Proprietary | 51.76 | — |
-| ChatGPT | Proprietary | 47.44 | -8% |
-| Text-Davinci-003 | Proprietary | 47.07 | -9% |
-| **gpt-oss-120b** | **Open Source** | 44.35 | -14% |
-| **gpt-oss-20b** | **Open Source** | 43.84 | -15% |
-| Text-Davinci-002 | Proprietary | 41.08 | -21% |
+| Model | Type | ROUGE-1 | ROUGE-2 | ROUGE-L | Source |
+|:------|:-----|:-------:|:-------:|:-------:|:------:|
+| BART + FTSAMSum | Fine-tuned | **53.46** | **25.08** | **48.62** | Yim et al. |
+| GPT-4 | Proprietary | 51.76 | 22.58 | 45.97 | Yim et al. |
+| ChatGPT | Proprietary | 47.44 | 19.01 | 42.47 | Yim et al. |
+| Text-Davinci-003 | Proprietary | 47.07 | 22.08 | 43.11 | Yim et al. |
+| **gpt-oss-120b** | **Open Source** | 44.35 | 14.71 | 19.43 | ⭐ Ours |
+| **gpt-oss-20b** | **Open Source** | 43.84 | 14.73 | 20.08 | ⭐ Ours |
+| **ministral-3b** | **Open Source** | 41.80 | 12.80 | 21.95 | ⭐ Ours |
+| Text-Davinci-002 | Proprietary | 41.08 | 17.27 | 37.46 | Yim et al. |
+| **ministral-8b** | **Open Source** | 40.25 | 12.30 | 20.45 | ⭐ Ours |
+
+### Fair Active Parameter Comparison
+
+| Model | Active Params | ROUGE-1 | ROUGE-2 | ROUGE-L |
+|:------|:-------------:|:-------:|:-------:|:-------:|
+| **gpt-oss-20b** | 3.6B (MoE) | **43.84** | **14.73** | 20.08 |
+| **ministral-3b** | 3B (Dense) | 41.80 | 12.80 | **21.95** |
+
+> MoE architecture provides +2 pts ROUGE-1 advantage with similar active parameters.
 
 ### Why Open Source?
 
@@ -122,13 +135,15 @@ gpt-oss-20b     ░░░░░░░░░░░░░░░░░░░░░�
 
 ### Model Performance
 
-1. **Competitive Zero-Shot Results**: Both models achieve ROUGE-1 scores between Text-Davinci-002 and ChatGPT, about 3-4 points below ChatGPT without task-specific fine-tuning.
+1. **Competitive Zero-Shot Results**: OpenAI OSS models achieve ROUGE-1 scores between Text-Davinci-002 and ChatGPT, about 3-4 points below ChatGPT without task-specific fine-tuning.
 
-2. **Limited Scaling Benefit**: The 120B model provides only marginal improvement (+0.5% ROUGE-1) over the 20B variant, suggesting diminishing returns from increased model capacity for this task.
+2. **MoE Architecture Advantage**: gpt-oss-20b (3.6B active params, MoE) outperforms ministral-3b (3B dense) by +2 pts ROUGE-1, demonstrating MoE efficiency benefits.
 
-3. **Structural Differences**: Lower ROUGE-L scores (~20% vs 42-46% for ChatGPT/GPT-4) indicate generated notes differ structurally from reference notes, likely due to the full-note generation approach versus division-based methods.
+3. **Limited Scaling Benefit**: The 120B model provides only marginal improvement (+0.5% ROUGE-1) over the 20B variant; ministral-8b actually performs *worse* than ministral-3b.
 
-4. **Inference Efficiency**: The 120B model demonstrated faster inference times (~6s vs ~28s per sample), potentially due to infrastructure optimizations.
+4. **Structural Differences**: Lower ROUGE-L scores (~20% vs 42-46% for ChatGPT/GPT-4) indicate generated notes differ structurally from reference notes, likely due to the full-note generation approach versus division-based methods.
+
+5. **Inference Speed**: Smaller models are significantly faster - ministral-3b (~3.4s) is 8x faster than gpt-oss-20b (~28s).
 
 ### Recommendations
 
@@ -154,7 +169,7 @@ gpt-oss-20b     ░░░░░░░░░░░░░░░░░░░░░�
 
 | Component | Specification |
 |:----------|:--------------|
-| Models | OpenAI gpt-oss-20b, gpt-oss-120b |
+| Models | gpt-oss-20b, gpt-oss-120b, ministral-3b, ministral-8b |
 | Infrastructure | AWS Bedrock (us-east-1) |
 | Dataset | ACI-Bench test1 split (n=40) |
 | Evaluation | ROUGE-1, ROUGE-2, ROUGE-L (F1) |
